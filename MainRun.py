@@ -16,20 +16,23 @@ from timeit import default_timer as timer
 #
 def automap_cnn_model(train_data):
     X_train = []
-    Y_train = []
-    input_data_size = int(train_data[0][0].size * 2)
-    output_data_size = train_data[1][0].shape
+    Y_train = train_data[1]
 
     for image in train_data[0]:
         r = np.ndarray.flatten(np.real(image))
         i = np.ndarray.flatten(np.imag(image))
         c = np.concatenate((r, i))
         # X_train.append(c)
-        X_train.append(np.reshape(c, (1, np.size(c))))
+        X_train.append(c)
 
-    for res in train_data[1]:
-        reshaped_res = np.reshape(res, (1, 1, res.shape[0], res.shape[1]))
-        Y_train.append(reshaped_res)
+    X_train = np.reshape(X_train, (len(X_train), len(X_train[0])))
+    Y_train = np.reshape(Y_train, (len(Y_train), 1, Y_train[0].shape[0], Y_train[0].shape[1]))
+    input_data_size = int(train_data[0][0].size * 2)
+    output_data_size = train_data[1][0].shape
+
+    # for res in train_data[1]:
+    #     reshaped_res = np.reshape(res, (1, 1, res.shape[0], res.shape[1]))
+    #     Y_train.append(reshaped_res)
 
 
     # 7. Define model architecture
@@ -37,8 +40,8 @@ def automap_cnn_model(train_data):
     model.add(Dense(int(input_data_size / 2), input_shape=(input_data_size, ), activation='tanh'))
     model.add(Dense(int(input_data_size / 2), activation='sigmoid'))
     model.add(Reshape((1, output_data_size[0], output_data_size[1]), input_shape=(int(input_data_size / 2),)))
-    model.add(Conv2D(5, (4, 4), activation='relu', padding="same", data_format="channels_first"))
-    model.add(Conv2D(5, (4, 4), activation='relu', padding="same", data_format="channels_first"))
+    model.add(Conv2D(20, (4, 4), activation='relu', padding="same", data_format="channels_first"))
+    model.add(Conv2D(20, (4, 4), activation='relu', padding="same", data_format="channels_first"))
     model.add(Conv2DTranspose(1, (output_data_size[0], output_data_size[1]), padding="same", data_format="channels_first"))
 
     model.compile(loss='mean_squared_error',
@@ -62,17 +65,17 @@ def automap_cnn_model(train_data):
     # # KerasVisualisationHelper.plot_all_weights(model, n=256)
     # # KerasVisualisationHelper.model_to_pic(model)
     # plot_model(model, to_file='model.png', show_shapes=True)
-    score = model.evaluate(X_train[0], Y_train[0], verbose=0)
-    X_train = np.ndarray(X_train)
-    Y_train = np.array(Y_train)
+    # score = model.evaluate(X_train[0], Y_train[0], verbose=0)
+    # X_train = np.ndarray(X_train)
+    # Y_train = np.array(Y_train)
     model.fit(X_train, Y_train,
               batch_size=32, nb_epoch=10, verbose=1)
 
     return model
 
 
-# address = "C:\\Users\\vardi\\Documents\\Datasets\\tiny-imagenet-200\\tiny-imagenet-200\\val\\images\\"
-address = "C:\\Users\\uqmbonya\\Downloads\\tiny-imagenet-200\\tiny-imagenet-200\\val\\images\\"
+address = "C:\\Users\\vardi\\Documents\\Datasets\\tiny-imagenet-200\\tiny-imagenet-200\\val\\images\\"
+# address = "C:\\Users\\uqmbonya\\Downloads\\tiny-imagenet-200\\tiny-imagenet-200\\val\\images\\"
 
 
 (img, trans) = ImageConnector.read_images(address, "JPEG", [32, 32], "k-space", True)
