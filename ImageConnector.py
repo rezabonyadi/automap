@@ -25,7 +25,7 @@ def read_images(images_addresses, extension, new_size, transformation, gray=Fals
         idx += 1
         if idx > 1000:
             break
-    return (image_list, transformed_list)
+    return image_list, transformed_list
 
 
 def apply_transformation(image, trans):
