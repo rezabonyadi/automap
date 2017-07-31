@@ -1,9 +1,6 @@
-import os
-from PIL import Image
 import glob
+
 import numpy as np
-from skimage import color
-import matplotlib.pyplot as plt
 from skimage import io, transform
 
 
@@ -26,7 +23,7 @@ def read_images(images_addresses, extension, new_size, transformation, gray=Fals
         if idx % report_idx == 0:
             print("Read the first %d instances" %idx)
         idx += 1
-        if idx > 1000:
+        if idx > 100:
             break
     return (image_list, transformed_list)
 
