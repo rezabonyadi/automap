@@ -13,6 +13,7 @@ def read_images(images_addresses, extension, new_size, transformation, gray=Fals
     idx = 0
     for filename in glob.glob(images_addresses+'*.'+extension):  # assuming gif
         im = io.imread(filename, as_grey=gray)
+        # im = io.imread(filename)
         im = transform.resize(im, new_size, mode='reflect')
         im = im.astype('float')
         if im.max() > 1:
@@ -23,7 +24,7 @@ def read_images(images_addresses, extension, new_size, transformation, gray=Fals
         if idx % report_idx == 0:
             print("Read the first %d instances" %idx)
         idx += 1
-        if idx > 1000:
+        if idx > 100:
             break
     return image_list, transformed_list
 

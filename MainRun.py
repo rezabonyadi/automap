@@ -1,6 +1,7 @@
 import ImageConnector
 import LearningDataProvider
 import numpy as np
+import CnnVisualiser
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten, LeakyReLU
 from keras.layers import MaxPooling2D, Conv2D, Conv2DTranspose
@@ -63,6 +64,8 @@ def prepare_data(data_address):
 
 
 def visualize_model(model, X_train, Y_train):
+    CnnVisualiser.keras_end_to_end_visualiser(model)
+
     KerasVisualisationHelper.plot_layer_outputs(model, X_train[0:1], 5)
     plot_model(model, to_file='model.png', show_shapes=True)
     KerasVisualisationHelper.plot_all_weights(model, n=256)
@@ -78,7 +81,7 @@ address = "C:\\Users\\uqmbonya\\Downloads\\tiny-imagenet-200\\tiny-imagenet-200\
 
 X_train, Y_train, X_test, Y_test = prepare_data(address)
 model = automap_cnn_model_build(X_train, Y_train)
-# visualize_model(model, X_train, Y_train)
+visualize_model(model, X_train, Y_train)
 
 model.fit(X_train, Y_train, batch_size=32, nb_epoch=10, verbose=1)
 # visualize_model(model, X_train, Y_train)
