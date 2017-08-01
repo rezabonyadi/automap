@@ -6,6 +6,7 @@ import keras.backend as K
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
+
 #os.environ['KERAS_BACKEND'] = 'theano'
 os.environ['KERAS_BACKEND'] = 'tensorflow'
 
@@ -275,7 +276,6 @@ class KerasVisualisationHelper(object):
 
     @staticmethod
     def plot_layer_outputs(model, test_image, layer_number):
-
         layer_outputs = KerasVisualisationHelper.get_layer_outputs(model, test_image)
 
         n = layer_outputs[layer_number].shape[0]
@@ -296,3 +296,4 @@ class KerasVisualisationHelper(object):
             plt.imshow(img, interpolation='nearest')
 
         i = 0
+
