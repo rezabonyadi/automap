@@ -72,8 +72,8 @@ def visualize_model(model, X_train, Y_train):
     KerasVisualisationHelper.model_to_pic(model)
     model.summary()
 
-# address = "C:\\Users\\vardi\\Documents\\Datasets\\tiny-imagenet-200\\tiny-imagenet-200\\val\\images\\"
-address = "C:\\Users\\uqmbonya\\Downloads\\tiny-imagenet-200\\tiny-imagenet-200\\val\\images\\"
+address = "C:\\Users\\vardi\\Documents\\Datasets\\tiny-imagenet-200\\tiny-imagenet-200\\val\\images\\"
+# address = "C:\\Users\\uqmbonya\\Downloads\\tiny-imagenet-200\\tiny-imagenet-200\\val\\images\\"
 
 # (x_train_instances, y_train_instances), (x_test_instances, y_test_instances) = mnist.load_data()
 # (train_instances), (test_instances) = LearningDataProvider.split_data(

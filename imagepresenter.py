@@ -1,8 +1,10 @@
 import ImageConnector
 import CnnVisualiser
 
-data_address = "R:\\projects\\image-net\\tiny-imagenet-200\\tiny-imagenet-200\\val\\images\\"
-(imgs, trans) = ImageConnector.read_images(data_address, "JPEG", [32, 32], "k-space", True)
+# data_address = "R:\\projects\\image-net\\tiny-imagenet-200\\tiny-imagenet-200\\val\\images\\"
+data_address = "C:\\Users\\vardi\\Documents\\Datasets\\tiny-imagenet-200\\tiny-imagenet-200\\val\\images\\"
+
+(imgs, trans) = ImageConnector.read_images(data_address, "JPEG", [64, 64], "k-space", True)
 
 # datafile = cbook.get_sample_data('ada.png')
 # h = Image.open(datafile)
