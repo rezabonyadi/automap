@@ -1,18 +1,13 @@
+import numpy as np
+from keras.layers import Conv2D, Conv2DTranspose
+from keras.layers import Dense, LeakyReLU
+from keras.layers.core import Reshape
+from keras.models import Sequential
+from keras.utils import plot_model
+from matplotlib import pyplot as plt
+
 import ImageConnector
 import LearningDataProvider
-import numpy as np
-import CnnVisualiser
-from keras.models import Sequential
-from keras.layers import Dense, Dropout, Activation, Flatten, LeakyReLU
-from keras.layers import MaxPooling2D, Conv2D, Conv2DTranspose
-from keras.layers.core import Reshape
-from keras.utils import np_utils, plot_model
-from KerasVisualiser import KerasVisualisationHelper
-from keras.datasets import mnist
-from keras.datasets import cifar10
-from keras.preprocessing.image import ImageDataGenerator
-from pylab import imshow, show
-from timeit import default_timer as timer
 
 #
 #
@@ -64,16 +59,15 @@ def prepare_data(data_address):
 
 
 def visualize_model(model, X_train, Y_train):
-    CnnVisualiser.keras_end_to_end_visualiser(model)
-
-    KerasVisualisationHelper.plot_layer_outputs(model, X_train[0:1], 5)
-    plot_model(model, to_file='model.png', show_shapes=True)
-    KerasVisualisationHelper.plot_all_weights(model, n=256)
-    KerasVisualisationHelper.model_to_pic(model)
+    # CnnVisualiser.keras_end_to_end_visualiser(model, X_train[0:1])
+    # KerasVisualisationHelper.plot_layer_outputs(model, X_train[0:1], 5)
+    # plot_model(model, to_file='model.png', show_shapes=True)
+    # KerasVisualisationHelper.plot_all_weights(model, n=256)
+    # KerasVisualisationHelper.model_to_pic(model)
     model.summary()
 
-address = "C:\\Users\\vardi\\Documents\\Datasets\\tiny-imagenet-200\\tiny-imagenet-200\\val\\images\\"
-# address = "C:\\Users\\uqmbonya\\Downloads\\tiny-imagenet-200\\tiny-imagenet-200\\val\\images\\"
+# address = "C:\\Users\\vardi\\Documents\\Datasets\\tiny-imagenet-200\\tiny-imagenet-200\\val\\images\\"
+address = "R:\\projects\\image-net\\tiny-imagenet-200\\tiny-imagenet-200\\val\\images\\"
 
 # (x_train_instances, y_train_instances), (x_test_instances, y_test_instances) = mnist.load_data()
 # (train_instances), (test_instances) = LearningDataProvider.split_data(
@@ -81,9 +75,28 @@ address = "C:\\Users\\vardi\\Documents\\Datasets\\tiny-imagenet-200\\tiny-imagen
 
 X_train, Y_train, X_test, Y_test = prepare_data(address)
 model = automap_cnn_model_build(X_train, Y_train)
-visualize_model(model, X_train, Y_train)
+# visualize_model(model, X_train, Y_train)
+# KerasVisualisationHelper.plot_output(model, X_train[0:1], Y_train[0, 0])
+model_out = model.predict(X_train[0:1])
+plt.figure()
+plt.title("Before training")
+plt.subplot(211)
+plt.imshow(Y_train[0, 0], cmap=plt.get_cmap('gray'))
+plt.subplot(212)
+plt.imshow(model_out[0, 0], cmap=plt.get_cmap('gray'))
+plt.show()
 
 model.fit(X_train, Y_train, batch_size=32, nb_epoch=10, verbose=1)
+model_out = model.predict(X_train[0:1])
+plt.figure()
+plt.title("After training")
+plt.subplot(211)
+plt.imshow(Y_train[0, 0], cmap=plt.get_cmap('gray'))
+plt.subplot(212)
+plt.imshow(model_out[0, 0], cmap=plt.get_cmap('gray'))
+plt.show()
+
+
 # visualize_model(model, X_train, Y_train)
 
 i = 0

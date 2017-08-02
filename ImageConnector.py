@@ -32,7 +32,8 @@ def read_images(images_addresses, extension, new_size, transformation, gray=Fals
 def apply_transformation(image, trans):
     transformed_image = []
     if trans == "k-space":
-        transformed_image = np.fft.ifft2(image)
+        # transformed_image = np.fft.ifft2(image)
+        transformed_image = np.fft.fft2(image)
         # fshift = np.fft.fftshift(transformed_image)
         # magnitude_spectrum = (np.absolute(transformed_image))
         # plt.imshow(magnitude_spectrum, cmap='gray')
