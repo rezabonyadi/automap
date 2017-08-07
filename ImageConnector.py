@@ -24,8 +24,8 @@ def read_images(images_addresses, extension, new_size, transformation, gray=Fals
         if idx % report_idx == 0:
             print("Read the first %d instances" %idx)
         idx += 1
-        if idx > 100:
-            break
+        # if idx > 100:
+        #     break
     return image_list, transformed_list
 
 

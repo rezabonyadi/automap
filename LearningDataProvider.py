@@ -6,17 +6,17 @@ import numpy as np
 def split_data(inputs, outputs, return_indexes=True, train_percent=.70, is_category=False):
 
     x_test_indices, x_train_indices, y_test_indices, y_train_indices = \
-        extract_indexes(inputs, outputs, train_percent, is_category)
+        __extract_indexes__(inputs, outputs, train_percent, is_category)
 
     if return_indexes is True:
         return (x_train_indices, y_train_indices), (x_test_indices, y_test_indices)
     else:
         x_train_instances, y_train_instances, x_test_instances, y_test_instances = \
-            fill_instances(inputs, outputs, x_test_indices, x_train_indices, y_test_indices, y_train_indices)
+            __fill_instances__(inputs, outputs, x_test_indices, x_train_indices, y_test_indices, y_train_indices)
         return (x_train_instances, y_train_instances), (x_test_instances, y_test_instances)
 
 
-def extract_indexes(inputs, outputs, train_percent, is_category):
+def __extract_indexes__(inputs, outputs, train_percent, is_category):
     n_inputs = len(inputs)
 
     x_train_indices = []
@@ -46,7 +46,7 @@ def extract_indexes(inputs, outputs, train_percent, is_category):
     return x_train_indices, y_train_indices, x_test_indices, y_test_indices
 
 
-def fill_instances(inputs, outputs, x_train_indices, y_train_indices, x_test_indices, y_test_indices):
+def __fill_instances__(inputs, outputs, x_train_indices, y_train_indices, x_test_indices, y_test_indices):
     x_train_ins = [inputs[i] for i in x_train_indices]
     y_train_ins = [outputs[i] for i in y_train_indices]
     x_test_ins = [inputs[i] for i in x_test_indices]

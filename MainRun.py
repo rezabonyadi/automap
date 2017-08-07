@@ -25,8 +25,8 @@ def automap_cnn_model_build(X_train, Y_train):
     model.add(Conv2D(64, (5, 5), strides=1, padding="same", data_format="channels_first"))
     model.add(LeakyReLU(alpha=0.3))
     # model.add(Conv2D(64, (7, 7), padding="same", data_format="channels_first"))
-    model.add(Conv2DTranspose(64, (7, 7), padding="same", data_format="channels_first"))
-    model.add(Conv2D(1, (7, 7), padding="same", data_format="channels_first"))
+    model.add(Conv2D(64, (7, 7), padding="same", data_format="channels_first"))
+    model.add(Conv2D(1, (3, 3), padding="same", data_format="channels_first"))
     model.compile(loss='mean_squared_error', optimizer='sgd', metrics=['accuracy'])
     return model
 
@@ -86,7 +86,7 @@ plt.subplot(212)
 plt.imshow(model_out[0, 0], cmap=plt.get_cmap('gray'))
 plt.show()
 
-model.fit(X_train, Y_train, batch_size=32, nb_epoch=10, verbose=1)
+model.fit(X_train, Y_train, batch_size=32, nb_epoch=200, verbose=1)
 model_out = model.predict(X_train[0:1])
 plt.figure()
 plt.title("After training")
